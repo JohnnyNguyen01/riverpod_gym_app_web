@@ -1,4 +1,6 @@
+import 'package:adonis_web_test/presentation/screens/auth/signup_login_screen_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SignUpLoginPage extends StatelessWidget {
   static const routeName = '/signupLoginPage';
@@ -50,6 +52,8 @@ class _BuildSignUpLoginCard extends StatefulWidget {
 
 class __BuildSignUpLoginCardState extends State<_BuildSignUpLoginCard> {
   final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   bool _passwordIsObscured = true;
 
   @override
@@ -78,6 +82,7 @@ class __BuildSignUpLoginCardState extends State<_BuildSignUpLoginCard> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                         labelText: 'Username',
                         helperText: 'Enter your username here'),
@@ -85,6 +90,7 @@ class __BuildSignUpLoginCardState extends State<_BuildSignUpLoginCard> {
                   ),
                   const SizedBox(height: 15),
                   TextFormField(
+                    controller: _passwordController,
                     obscureText: _passwordIsObscured,
                     validator: _validatePassword,
                     decoration: InputDecoration(
@@ -102,10 +108,14 @@ class __BuildSignUpLoginCardState extends State<_BuildSignUpLoginCard> {
                     height: 30,
                     width: 320,
                     child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState.validate())
-                          Navigator.pushNamed(context, '/dash');
-                      },
+                      onPressed: () => _formKey.currentState.validate()
+                          ? context
+                              .read(signupLoginScreenController)
+                              .handleLoginButton(
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                  context: context)
+                          : () {},
                       child: Text("Login"),
                     ),
                   ),

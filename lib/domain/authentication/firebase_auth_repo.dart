@@ -90,5 +90,6 @@ class FirebaseAuthRepo implements AuthRepository {
   @override
   String get userName => _authInstance.currentUser.displayName;
 
+  @override
   Stream<User> authStateChanges() => _authInstance.authStateChanges();
 }

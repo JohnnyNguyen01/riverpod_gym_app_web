@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import '../models/models.dart';
 
@@ -24,4 +25,6 @@ abstract class AuthRepository {
   String get email;
 
   Future<UserModel> getCurrentUserDetails();
+
+  Stream<User> authStateChanges();
 }
