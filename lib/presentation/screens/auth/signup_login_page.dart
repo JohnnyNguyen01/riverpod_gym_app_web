@@ -1,0 +1,145 @@
+import 'package:flutter/material.dart';
+
+class SignUpLoginPage extends StatelessWidget {
+  static const routeName = '/signupLoginPage';
+
+  static Route route() => MaterialPageRoute(
+        settings: const RouteSettings(name: routeName),
+        builder: (_) => SignUpLoginPage(),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        _BuildBackground(),
+        _BuildSignUpLoginCard(),
+      ],
+    );
+  }
+}
+
+class _BuildBackground extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final _screenSize = MediaQuery.of(context).size;
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage('assets/images/background.jpeg'),
+            ),
+          ),
+        ),
+        Container(
+          width: _screenSize.width,
+          height: _screenSize.height,
+          color: Colors.black26,
+        )
+      ],
+    );
+  }
+}
+
+class _BuildSignUpLoginCard extends StatefulWidget {
+  @override
+  __BuildSignUpLoginCardState createState() => __BuildSignUpLoginCardState();
+}
+
+class __BuildSignUpLoginCardState extends State<_BuildSignUpLoginCard> {
+  final _formKey = GlobalKey<FormState>();
+  bool _passwordIsObscured = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: Card(
+        elevation: 8,
+        child: Container(
+          width: 340,
+          height: 340,
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Text(
+                    "Adonis  Athletics Coach",
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  Text(
+                    "Portal",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        labelText: 'Username',
+                        helperText: 'Enter your username here'),
+                    validator: _validateUsername,
+                  ),
+                  const SizedBox(height: 15),
+                  TextFormField(
+                    obscureText: _passwordIsObscured,
+                    validator: _validatePassword,
+                    decoration: InputDecoration(
+                      labelText: 'Pasword',
+                      helperText: 'Enter your password here',
+                      suffixIcon: IconButton(
+                          icon: _passwordIsObscured
+                              ? Icon(Icons.visibility_off)
+                              : Icon(Icons.visibility),
+                          onPressed: handleChangePasswordVisibility),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    height: 30,
+                    width: 320,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState.validate())
+                          Navigator.pushNamed(context, '/dash');
+                      },
+                      child: Text("Login"),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  TextButton(onPressed: () {}, child: Text('Sign Up'))
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  String _validateUsername(String username) {
+    if (username.isEmpty) {
+      return 'Please entery your username';
+    } else
+      return null;
+  }
+
+  String _validatePassword(String password) {
+    if (password.isEmpty) {
+      return "Please enter your password";
+    }
+    if (password.length < 8) {
+      return "Please enter your correct password 8 chars";
+    } else
+      return null;
+  }
+
+  void handleChangePasswordVisibility() {
+    setState(() {
+      _passwordIsObscured = !_passwordIsObscured;
+    });
+  }
+}
