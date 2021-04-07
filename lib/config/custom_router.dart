@@ -1,3 +1,4 @@
+import 'package:adonis_web_test/presentation/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import '../presentation/screens/screens.dart';
 
@@ -6,6 +7,8 @@ class CustomRouter {
     switch (settings.name) {
       case SignUpLoginPage.routeName:
         return SignUpLoginPage.route();
+      case Dashboard.routeName:
+        return Dashboard.route();
       default:
         return _buildErrorRoute(settings: settings);
     }
