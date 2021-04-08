@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:adonis_web_test/domain/databases/nosql_database_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +14,7 @@ final databaseProvider = Provider<FirestoreService>((ref) {
   return FirestoreService(read: ref.read);
 });
 
-class FirestoreService {
+class FirestoreService implements NoSqlDatabaseRepository {
   final Reader read;
   FirebaseFirestore _firestore;
 
@@ -23,6 +24,7 @@ class FirestoreService {
 
   ///Add a new user to the users collection in firestore.
   ///Creates an new doc using their uid
+  @override
   Future<void> addNewUser(UserModel user) async {
     CollectionReference users = _firestore.collection('users');
     try {
@@ -38,6 +40,7 @@ class FirestoreService {
   }
 
   ///Retrieves a `Coach` object from firestore via a specified `uid`
+  @override
   Future<Coach> getCoach({@required String coachUid}) async {
     CollectionReference coachesCollection =
         _firestore.collection(Paths.coaches);
@@ -54,6 +57,7 @@ class FirestoreService {
 
   ///Adds a new doc to `user_entries` in firestore using a user's `uid`. This will
   ///contain a collection of all their entered workout data.
+  @override
   Future<void> uploadUserWorkoutValues(
       {@required WorkoutUserValuesModel model, @required String uid}) async {
     CollectionReference userEntries = _firestore.collection(Paths.userEntries);
@@ -77,6 +81,7 @@ class FirestoreService {
   }
 
   // Returns a stream of a specific chat room between a coach and client.
+  @override
   Stream<List<Message>> getChatRoomStream(
       {@required String coachUID, @required clientUID}) {
     final streamSnapshot = _firestore
@@ -99,6 +104,7 @@ class FirestoreService {
   }
 
   // Add messages to chat room between a specific coach and client
+  @override
   Future<void> addMessageToChatRoom(
       {@required String coachUID,
       @required String clientUID,
@@ -111,6 +117,7 @@ class FirestoreService {
 
   ///Retrieves a list of all of this client's chatrooms as a `MessageConact` list
   ///via their uid.
+  @override
   Future<List<MessageContact>> getChatRooms({String uid}) async {
     final chatRooms = _firestore
         .collection(Paths.chatRooms)
@@ -132,6 +139,7 @@ class FirestoreService {
 
   ///update a specific chat room with the latest details;
   ///`roomInfo` - must be the latest updated messageRoom state.
+  @override
   Future<void> updateChatRoomDoc({@required MessageContact roomInfo}) async {
     try {
       final roomCollection =
@@ -144,6 +152,8 @@ class FirestoreService {
     }
   }
 
+  ///Set the username for a selected user indicated via their uid.
+  @override
   Future<String> setUserName(String uid, String newName) async {
     CollectionReference users = _firestore.collection(Paths.users);
     try {
@@ -156,6 +166,7 @@ class FirestoreService {
   }
 
   ///Retrieve a user's details as a [UserModel] object from firestore.
+  @override
   Future<UserModel> getUser(String uid) async {
     CollectionReference users = _firestore.collection('users');
     final userSnapshot = await users.doc(uid).get().catchError((e) {
@@ -168,6 +179,7 @@ class FirestoreService {
 
   ///Returns the Workout for the specified uid and timestamp.
   ///todo: Check if there's a more efficient way of doing this
+  @override
   Future<Workout> getUserWorkout(String uid, DateTime dateTime) async {
     Workout workout = Workout.empty();
     CollectionReference workoutPlan = _firestore.collection("workout_plan");

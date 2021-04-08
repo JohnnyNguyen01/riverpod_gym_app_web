@@ -25,7 +25,7 @@ class FirebaseAuthRepo implements AuthRepository {
           email: email, password: password);
       return 'Sign in successful';
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      throw Failure(error: e.code, message: e.message);
     }
   }
 
@@ -38,7 +38,7 @@ class FirebaseAuthRepo implements AuthRepository {
       return 'login with email and password successful';
     } on FirebaseAuthException catch (e) {
       print(e.message);
-      return Future.error(e.message);
+      throw Failure(error: e.code, message: e.message);
     }
   }
 

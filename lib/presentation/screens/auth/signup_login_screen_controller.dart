@@ -3,6 +3,7 @@ import 'package:adonis_web_test/domain/models/models.dart';
 import 'package:adonis_web_test/presentation/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 final signupLoginScreenController =
     Provider<SignUpLoginScreenController>((ref) {
@@ -23,14 +24,15 @@ class SignUpLoginScreenController {
           email: email, password: password);
       Navigator.of(context).pushReplacementNamed(Dashboard.routeName);
     } on Failure catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.message),
+      print('failure form controller: ${e.message}');
+      Fluttertoast.showToast(
+          msg: e.message,
           backgroundColor: Colors.red,
-        ),
-      );
+          toastLength: Toast.LENGTH_LONG,
+          webBgColor: '#C23933',
+          webPosition: "center");
     }
   }
-
-  void handleSignUpBtn() {}
 }
+
+void handleSignUpBtn({@required BuildContext context}) {}
