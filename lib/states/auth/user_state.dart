@@ -3,16 +3,14 @@ import 'package:adonis_web_test/domain/models/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meta/meta.dart';
 
-final userStateProvider = Provider<UserState>((ref) {
-  final cloudStorageProvider = ref.read(storageCloudService);
-  final authRepoProvider = ref.read(firebaseAuthRepoProvider);
-  return UserState(
+final userStateProvider = StateNotifierProvider<UserState, UserModel>(
+  (ref) => UserState(
       read: ref.read,
-      authRepo: authRepoProvider,
-      storageRepo: cloudStorageProvider);
-});
+      authRepo: ref.read(firebaseAuthRepoProvider),
+      storageRepo: ref.read(storageCloudService)),
+);
 
-class UserState extends StateNotifier<AsyncValue<UserModel>> {
+class UserState extends StateNotifier<UserModel> {
   final Reader read;
   final AuthRepository authRepo;
   final CloudStorageRepository storageRepo;
@@ -21,16 +19,16 @@ class UserState extends StateNotifier<AsyncValue<UserModel>> {
       {@required this.read,
       @required this.authRepo,
       @required this.storageRepo})
-      : super(AsyncData(UserModel.initValue()));
+      : super(UserModel.initValue());
 
   /// Sets the state to the user gained from auth Repository and Cloud Storage
   /// Repository
-  void setCurrentUser() async {
+  Future<void> setCurrentUser() async {
     final userFromAuthRepo = UserModel.fromAuthAndStorageProviders(authRepo);
     final profileImageURL =
         await storageRepo.getUserProfilePhotoUrl(userFromAuthRepo.uid);
     final newState =
         userFromAuthRepo.copyWith(profileImageURL: profileImageURL);
-    state = AsyncData(newState);
+    state = newState;
   }
 }

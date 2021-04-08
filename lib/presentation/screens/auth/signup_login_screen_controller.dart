@@ -1,6 +1,7 @@
 import 'package:adonis_web_test/domain/authentication/firebase_auth_repo.dart';
 import 'package:adonis_web_test/domain/models/models.dart';
 import 'package:adonis_web_test/presentation/screens/screens.dart';
+import 'package:adonis_web_test/states/auth/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -22,6 +23,7 @@ class SignUpLoginScreenController {
     try {
       await authProvider.loginWithEmailAndPassword(
           email: email, password: password);
+      await read(userStateProvider.notifier).setCurrentUser();
       Navigator.of(context).pushReplacementNamed(Dashboard.routeName);
     } on Failure catch (e) {
       print('failure form controller: ${e.message}');
