@@ -1,6 +1,6 @@
+import 'package:adonis_web_test/domain/domain.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import '../authentication/auth_repository.dart';
 
 class UserModel extends Equatable {
   final String userName;
@@ -31,8 +31,9 @@ class UserModel extends Equatable {
         this.email = '',
         this.coachUID = '';
 
-  UserModel.fromAuthAndStorageProviders(AuthRepository authProvider)
-      : this.uid = authProvider.uid,
+  UserModel.fromAuthAndStorageProviders(
+    AuthRepository authProvider,
+  )   : this.uid = authProvider.uid,
         this.userName = authProvider.userName,
         this.email = authProvider.email,
         this.profileImageURL = '',
