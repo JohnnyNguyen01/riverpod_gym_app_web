@@ -82,7 +82,7 @@ class FirestoreService implements NoSqlDatabaseRepository {
 
   // Returns a stream of a specific chat room between a coach and client.
   @override
-  Stream<List<Message>> getChatRoomStream(
+  Stream<List<Message>> getChatRoomMessagesRoomStream(
       {@required String coachUID, @required clientUID}) {
     final streamSnapshot = _firestore
         .collection(Paths.chatRooms)
@@ -118,16 +118,16 @@ class FirestoreService implements NoSqlDatabaseRepository {
   ///Retrieves a list of all of this client's chatrooms as a `MessageConact` list
   ///via their uid.
   @override
-  Future<List<MessageContact>> getChatRooms({String uid}) async {
+  Future<List<ChatRoom>> getChatRooms({String uid}) async {
     final chatRooms = _firestore
         .collection(Paths.chatRooms)
         .where('clientID', isEqualTo: uid)
         .get();
     try {
-      List<MessageContact> chatList = [];
+      List<ChatRoom> chatList = [];
       final snapshotList = await chatRooms;
       for (var snapshot in snapshotList.docs) {
-        chatList.add(MessageContact.fromDocumentSnapshot(snapshot.data()));
+        chatList.add(ChatRoom.fromDocumentSnapshot(snapshot.data()));
       }
       return chatList;
     } on PlatformException catch (e) {
@@ -140,7 +140,7 @@ class FirestoreService implements NoSqlDatabaseRepository {
   ///update a specific chat room with the latest details;
   ///`roomInfo` - must be the latest updated messageRoom state.
   @override
-  Future<void> updateChatRoomDoc({@required MessageContact roomInfo}) async {
+  Future<void> updateChatRoomDoc({@required ChatRoom roomInfo}) async {
     try {
       final roomCollection =
           _firestore.collection(Paths.chatRooms).doc(roomInfo.chatRoomID);
@@ -211,5 +211,26 @@ class FirestoreService implements NoSqlDatabaseRepository {
     });
 
     return workout;
+  }
+
+  ///Returns a stream that contains a list of all the chat rooms
+  @override
+  Stream<List<ChatRoom>> getChatRoomsStream({String coachUID}) {
+    final chatRoomsStreamSnapshot = _firestore
+        .collection(Paths.chatRooms)
+        // .orderBy('sentAt')
+        .where('coachID', isEqualTo: coachUID)
+        .snapshots()
+        .asBroadcastStream();
+
+    final chatRoomListStream = chatRoomsStreamSnapshot.map((snapshot) {
+      List<ChatRoom> chatRoomsList = [];
+      var allChatRoomsDocs = snapshot.docs;
+      for (var chatRoomDoc in allChatRoomsDocs) {
+        chatRoomsList.add(ChatRoom.fromDocumentSnapshot(chatRoomDoc.data()));
+      }
+      return chatRoomsList;
+    });
+    return chatRoomListStream.asBroadcastStream();
   }
 }

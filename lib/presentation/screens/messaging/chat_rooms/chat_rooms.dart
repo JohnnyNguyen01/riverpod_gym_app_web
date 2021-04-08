@@ -1,4 +1,8 @@
+import 'package:adonis_web_test/presentation/screens/messaging/chat_rooms/chat_room_card.dart';
+import 'package:adonis_web_test/presentation/widgets/widgets.dart';
+import 'package:adonis_web_test/states/messaging/chat_room_list/chat_room_list_stream.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ChatRooms extends StatelessWidget {
   @override
@@ -16,6 +20,8 @@ class ChatRooms extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   _buildHeading(),
+                  const SizedBox(height: 30),
+                  _buildChatRoomsListView()
                 ],
               ),
             ),
@@ -27,6 +33,7 @@ class ChatRooms extends StatelessWidget {
 
   Widget _buildHeading() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const Text(
           'Chats.',
@@ -35,11 +42,40 @@ class ChatRooms extends StatelessWidget {
             fontSize: 26,
           ),
         ),
-        const SizedBox(width: 40),
         IconButton(onPressed: () {}, icon: Icon(Icons.search))
       ],
     );
   }
 
-  Widget _buildChatRoomsListView() {}
+  Widget _buildChatRoomsListView() {
+    return Consumer(
+      builder: (context, watch, child) {
+        final chatRoomsStream = watch(chatRoomListStreamProvider);
+        return chatRoomsStream.when(
+          data: (chatRoomList) {
+            return chatRoomList.isNotEmpty
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: chatRoomList.length,
+                    itemBuilder: (context, index) {
+                      final chatRoom = chatRoomList[index];
+                      return ChatRoomCard(
+                        profileImageURL: chatRoom.clientImageURL,
+                        latestMessage: chatRoom.latestMessage,
+                        participantName: chatRoom.client,
+                        onTap: () {},
+                      );
+                    })
+                : Text('No chats yet');
+          },
+          loading: () => const Center(
+            child: const CircularProgressIndicator(),
+          ),
+          error: (err, stack) => Text(
+            err.toString(),
+          ),
+        );
+      },
+    );
+  }
 }

@@ -2,9 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-class MessageContact extends Equatable {
+class ChatRoom extends Equatable {
   final String clientID;
   final String client;
+  final String clientImageURL;
   final String latestMessage;
   final String coach;
   final Timestamp sentAt;
@@ -13,7 +14,7 @@ class MessageContact extends Equatable {
   final String coachID;
   final String chatRoomID;
 
-  MessageContact(
+  ChatRoom(
       {@required this.latestMessage,
       @required this.coach,
       @required this.coachID,
@@ -21,27 +22,30 @@ class MessageContact extends Equatable {
       @required this.coachImageURL,
       @required this.sentBy,
       @required this.clientID,
+      @required this.clientImageURL,
       @required this.client,
       @required this.chatRoomID});
 
-  MessageContact.init()
+  ChatRoom.init()
       : this.client = '',
         this.clientID = '',
         this.coach = '',
         this.coachID = '',
+        this.clientImageURL = '',
         this.coachImageURL = '',
         this.latestMessage = '',
         this.sentAt = null,
         this.chatRoomID = '',
         this.sentBy = '';
 
-  MessageContact.fromDocumentSnapshot(Map<String, dynamic> snapshot)
+  ChatRoom.fromDocumentSnapshot(Map<String, dynamic> snapshot)
       : this.latestMessage = snapshot['latestMessage'],
         this.coach = snapshot['coach'],
         this.coachID = snapshot['coachID'],
         this.sentAt = snapshot['sentAt'],
         this.coachImageURL = snapshot['coachImageURL'],
         this.clientID = snapshot['clientID'],
+        this.clientImageURL = snapshot['clientImageURL'],
         this.client = snapshot['client'],
         this.chatRoomID = snapshot['chatRoomID'],
         this.sentBy = snapshot['sentBy'];
@@ -52,6 +56,7 @@ class MessageContact extends Equatable {
       'coach': this.coach,
       'coachID': this.coachID,
       'sentAt': this.sentAt,
+      'clientImageURL': this.clientImageURL,
       'coachImageURL': this.coachImageURL,
       'clientID': this.clientID,
       'client': this.client,
@@ -60,7 +65,7 @@ class MessageContact extends Equatable {
     };
   }
 
-  MessageContact copyWith(
+  ChatRoom copyWith(
       {String latestMessage,
       String coach,
       String coachID,
@@ -69,8 +74,9 @@ class MessageContact extends Equatable {
       String clientID,
       String client,
       String chatRoomID,
+      String clientImageURL,
       String sentBy}) {
-    return MessageContact(
+    return ChatRoom(
         latestMessage: latestMessage ?? this.latestMessage,
         coach: coach ?? this.coach,
         coachID: coachID ?? this.coachID,
@@ -78,6 +84,7 @@ class MessageContact extends Equatable {
         coachImageURL: coachImageURL ?? this.coachImageURL,
         client: client ?? this.client,
         clientID: clientID ?? this.clientID,
+        clientImageURL: clientImageURL ?? this.clientImageURL,
         chatRoomID: chatRoomID ?? this.chatRoomID,
         sentBy: sentBy ?? this.sentBy);
   }
@@ -89,6 +96,7 @@ class MessageContact extends Equatable {
         coachID,
         sentAt,
         coachImageURL,
+        clientImageURL,
         client,
         clientID,
         chatRoomID,
