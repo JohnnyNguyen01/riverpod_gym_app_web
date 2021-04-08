@@ -18,7 +18,7 @@ class DashboardController {
   void testBtn() async {
     final selectedRoom = read(selectedChatRoomStateProvider);
     print(selectedRoom);
-    final chatRoomStream = read(messagesStreamProvider);
-    print(chatRoomStream.data.value.first);
+    // final chatRoomStream = read(messageStreamProvider);
+    // print(chatRoomStream.first);
   }
 }

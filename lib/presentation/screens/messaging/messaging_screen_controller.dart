@@ -1,4 +1,5 @@
 import 'package:adonis_web_test/domain/domain.dart';
+import 'package:adonis_web_test/states/messaging/messages/messages_stream_provider.dart';
 import 'package:adonis_web_test/states/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,6 +20,7 @@ class MessagingScreenController {
 
   void handleChatRoomClick({@required ChatRoom chatRoom}) {
     final selectedChatRoomState = read(selectedChatRoomStateProvider.notifier);
-    selectedChatRoomState.setChatRoom(chatRoom: chatRoom);
+    // final chatRoomMessagesStream = read(messageStreamProvider);
+    // selectedChatRoomState.setChatRoom(chatRoom: chatRoom);
   }
 }
