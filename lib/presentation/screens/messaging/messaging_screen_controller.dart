@@ -1,3 +1,5 @@
+import 'package:adonis_web_test/domain/domain.dart';
+import 'package:adonis_web_test/states/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meta/meta.dart';
@@ -14,4 +16,9 @@ class MessagingScreenController {
 
   void handleLeadingAppbarBtn({@required BuildContext context}) =>
       Navigator.of(context).pop();
+
+  void handleChatRoomClick({@required ChatRoom chatRoom}) {
+    final selectedChatRoomState = read(selectedChatRoomStateProvider.notifier);
+    selectedChatRoomState.setChatRoom(chatRoom: chatRoom);
+  }
 }

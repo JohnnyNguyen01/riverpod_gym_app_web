@@ -1,4 +1,5 @@
 import 'package:adonis_web_test/presentation/screens/messaging/chat_rooms/chat_rooms.dart';
+import 'package:adonis_web_test/presentation/screens/messaging/messages/messages_view.dart';
 import 'package:adonis_web_test/presentation/screens/messaging/messaging_screen_controller.dart';
 import 'package:adonis_web_test/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class MessagingScreen extends ConsumerWidget {
         children: [
           NavigationBar(),
           ChatRooms(),
+          MessagesView(),
         ],
       ),
     );

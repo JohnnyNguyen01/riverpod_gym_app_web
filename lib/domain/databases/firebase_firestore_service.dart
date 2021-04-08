@@ -82,7 +82,7 @@ class FirestoreService implements NoSqlDatabaseRepository {
 
   // Returns a stream of a specific chat room between a coach and client.
   @override
-  Stream<List<Message>> getChatRoomMessagesRoomStream(
+  Stream<List<Message>> getChatRoomMessagesStream(
       {@required String coachUID, @required clientUID}) {
     final streamSnapshot = _firestore
         .collection(Paths.chatRooms)

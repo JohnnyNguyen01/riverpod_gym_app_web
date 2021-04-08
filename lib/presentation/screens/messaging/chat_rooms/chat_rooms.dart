@@ -1,4 +1,5 @@
 import 'package:adonis_web_test/presentation/screens/messaging/chat_rooms/chat_room_card.dart';
+import 'package:adonis_web_test/presentation/screens/messaging/messaging_screen_controller.dart';
 import 'package:adonis_web_test/presentation/widgets/widgets.dart';
 import 'package:adonis_web_test/states/messaging/chat_room_list/chat_room_list_stream.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,8 @@ class ChatRooms extends StatelessWidget {
     return Consumer(
       builder: (context, watch, child) {
         final chatRoomsStream = watch(chatRoomListStreamProvider);
+        final messagingScrenController =
+            watch(messagingScreenControllerProvider);
         return chatRoomsStream.when(
           data: (chatRoomList) {
             return chatRoomList.isNotEmpty
@@ -63,7 +66,8 @@ class ChatRooms extends StatelessWidget {
                         profileImageURL: chatRoom.clientImageURL,
                         latestMessage: chatRoom.latestMessage,
                         participantName: chatRoom.client,
-                        onTap: () {},
+                        onTap: () => messagingScrenController
+                            .handleChatRoomClick(chatRoom: chatRoom),
                       );
                     })
                 : Text('No chats yet');

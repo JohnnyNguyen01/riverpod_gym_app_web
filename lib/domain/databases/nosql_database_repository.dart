@@ -6,7 +6,7 @@ abstract class NoSqlDatabaseRepository {
   Future<Coach> getCoach({@required String coachUid});
   Future<void> uploadUserWorkoutValues(
       {@required WorkoutUserValuesModel model, @required String uid});
-  Stream<List<Message>> getChatRoomMessagesRoomStream(
+  Stream<List<Message>> getChatRoomMessagesStream(
       {@required String coachUID, @required clientUID});
   Future<void> addMessageToChatRoom(
       {@required String coachUID,
