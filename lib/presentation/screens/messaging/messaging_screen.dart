@@ -1,4 +1,6 @@
+import 'package:adonis_web_test/presentation/screens/messaging/chat_rooms/chat_rooms.dart';
 import 'package:adonis_web_test/presentation/screens/messaging/messaging_screen_controller.dart';
+import 'package:adonis_web_test/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,7 +16,10 @@ class MessagingScreen extends ConsumerWidget {
     return Scaffold(
       appBar: _buildAppBar(context, watch),
       body: Row(
-        children: [],
+        children: [
+          NavigationBar(),
+          ChatRooms(),
+        ],
       ),
     );
   }
