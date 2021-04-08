@@ -120,7 +120,7 @@ class __BuildSignUpLoginCardState extends State<_BuildSignUpLoginCard> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  TextButton(onPressed: () {}, child: Text('Sign Up'))
+                  // TextButton(onPressed: () {}, child: Text('Sign Up'))
                 ],
               ),
             ),

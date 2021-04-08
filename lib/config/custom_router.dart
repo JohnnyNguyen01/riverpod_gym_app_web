@@ -9,6 +9,8 @@ class CustomRouter {
         return SignUpLoginPage.route();
       case Dashboard.routeName:
         return Dashboard.route();
+      case MessagingScreen.routeName:
+        return MessagingScreen.route();
       default:
         return _buildErrorRoute(settings: settings);
     }
