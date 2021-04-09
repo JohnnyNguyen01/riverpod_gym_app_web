@@ -1,7 +1,3 @@
-import 'package:adonis_web_test/domain/databases/firebase_firestore_service.dart';
-import 'package:adonis_web_test/states/auth/user_state.dart';
-import 'package:adonis_web_test/states/messaging/chat_room_list/chat_room_list_stream.dart';
-import 'package:adonis_web_test/states/messaging/messages/messages_stream_provider.dart';
 import 'package:adonis_web_test/states/states.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meta/meta.dart';
@@ -18,6 +14,8 @@ class DashboardController {
   void testBtn() async {
     final selectedRoom = read(selectedChatRoomStateProvider);
     print(selectedRoom);
+    final tester = read(selectedChatRoomStateProvider);
+    print(tester);
     // final chatRoomStream = read(messageStreamProvider);
     // print(chatRoomStream.first);
   }
