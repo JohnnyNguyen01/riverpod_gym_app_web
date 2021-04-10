@@ -49,6 +49,7 @@ class MessagingScreenController {
       );
       final newRoomInfo = read(selectedChatRoomStateProvider);
       read(databaseProvider).updateChatRoomDoc(roomInfo: newRoomInfo);
+      inputController.text = '';
     } on Failure catch (e) {
       ErrorToast(message: e.message).showToast();
     }

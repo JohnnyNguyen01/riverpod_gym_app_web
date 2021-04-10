@@ -44,6 +44,7 @@ class _MessagesViewState extends State<MessagesView> {
       children: [
         Expanded(
           child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               reverse: true,
               shrinkWrap: true,
               itemCount: snapshot.data.length,
@@ -58,6 +59,3 @@ class _MessagesViewState extends State<MessagesView> {
     );
   }
 }
-// 4O3MCGd1JVWfGvF80TcTCUftsg02_7PwiTV52hgPaeCDjOv9YBrClrsr2
-
-// 4O3MCGd1JVWfGvF80TcTCUftsg02_7PwiTV52hgPaeCDjOv9YBrClrsr2_7PwiTV52hgPaeCDjOv9YBrClrsr2
