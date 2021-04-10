@@ -16,7 +16,6 @@ class ExercisesScreen extends StatelessWidget {
         // mainAxisSize: MainAxisSize.max,
         children: [
           NavigationBar(),
-          Text('Hello'),
           NewExerciseForm(),
         ],
       ),
