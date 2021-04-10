@@ -1,10 +1,10 @@
 import 'package:adonis_web_test/domain/models/models.dart';
+import 'package:adonis_web_test/presentation/screens/messaging/messages/input_row.dart';
 import 'package:adonis_web_test/presentation/screens/messaging/messages/message_bubbles.dart';
 import 'package:adonis_web_test/states/messaging/messages/message_state.dart';
 import 'package:adonis_web_test/states/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'dart:async';
 
 class MessagesView extends StatefulWidget {
   @override
@@ -17,7 +17,6 @@ class _MessagesViewState extends State<MessagesView> {
     return Consumer(builder: (context, watch, child) {
       final roomInfo = watch(selectedChatRoomStateProvider);
       final currentMessageStream = watch(messageStreamStateProvider);
-      // final databaseProv = watch(databaseProvider);
       if (roomInfo == ChatRoom.init()) {
         return Container();
       } else
@@ -32,40 +31,33 @@ class _MessagesViewState extends State<MessagesView> {
             } else if (snapshot.data == null) {
               return Text("No chats");
             } else if (snapshot.hasData) {
-              return Expanded(
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return MessageBubble(message: snapshot.data[index]);
-                    }),
-              );
+              return Expanded(child: _buildMessageListView(snapshot: snapshot));
             } else
               return const Text('No Chats');
           },
         );
     });
+  }
 
-    //  messagesStream.when(
-    //     data: (messageList) {
-    //       return (messageList.isEmpty || messageList == null)
-    //           ? Center(
-    //               child: Text('No messages'),
-    //             )
-    //           : ListView.builder(
-    //               shrinkWrap: true,
-    //               itemCount: messageList.length,
-    //               itemBuilder: (context, index) {
-    //                 return MessageBubble(message: messageList[index]);
-    //               });
-    //     },
-    //     loading: () => const Center(
-    //           child: const CircularProgressIndicator(),
-    //         ),
-    //     error: (err, stack) => Center(
-    //           child: Text(
-    //             err.toString(),
-    //           ),
-    //         ));
+  Widget _buildMessageListView({@required AsyncSnapshot snapshot}) {
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+              reverse: true,
+              shrinkWrap: true,
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                return MessageBubble(message: snapshot.data[index]);
+              }),
+        ),
+        Consumer(
+          builder: (context, watch, child) => BuildInputRow(watch: watch),
+        ),
+      ],
+    );
   }
 }
+// 4O3MCGd1JVWfGvF80TcTCUftsg02_7PwiTV52hgPaeCDjOv9YBrClrsr2
+
+// 4O3MCGd1JVWfGvF80TcTCUftsg02_7PwiTV52hgPaeCDjOv9YBrClrsr2_7PwiTV52hgPaeCDjOv9YBrClrsr2

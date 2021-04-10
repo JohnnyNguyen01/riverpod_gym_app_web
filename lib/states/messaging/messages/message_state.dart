@@ -1,5 +1,4 @@
 import 'package:adonis_web_test/domain/domain.dart';
-import 'package:adonis_web_test/states/messaging/messages/messages_stream_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meta/meta.dart';
 
@@ -20,4 +19,5 @@ class MessageStreamState extends StateNotifier<Stream<List<Message>>> {
     state = databaseRepo.getChatRoomMessagesStream(
         coachUID: coachUID, clientUID: clientUID);
   }
+
 }

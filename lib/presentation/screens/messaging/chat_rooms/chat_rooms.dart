@@ -1,6 +1,5 @@
 import 'package:adonis_web_test/presentation/screens/messaging/chat_rooms/chat_room_card.dart';
 import 'package:adonis_web_test/presentation/screens/messaging/messaging_screen_controller.dart';
-import 'package:adonis_web_test/presentation/widgets/widgets.dart';
 import 'package:adonis_web_test/states/messaging/chat_room_list/chat_room_list_stream.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -16,7 +16,5 @@ class DashboardController {
     print(selectedRoom);
     final tester = read(selectedChatRoomStateProvider);
     print(tester);
-    // final chatRoomStream = read(messageStreamProvider);
-    // print(chatRoomStream.first);
   }
 }
