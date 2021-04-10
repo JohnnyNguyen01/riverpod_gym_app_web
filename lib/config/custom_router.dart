@@ -11,6 +11,8 @@ class CustomRouter {
         return Dashboard.route();
       case MessagingScreen.routeName:
         return MessagingScreen.route();
+      case ExercisesScreen.routeName:
+        return ExercisesScreen.route();
       default:
         return _buildErrorRoute(settings: settings);
     }

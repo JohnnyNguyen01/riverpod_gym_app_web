@@ -17,7 +17,7 @@ class NavigationBarController {
         Navigator.of(context).pushNamed(Dashboard.routeName);
         break;
       case 1:
-        print('exercises screen selected');
+        Navigator.of(context).pushNamed(ExercisesScreen.routeName);
         break;
       case 2:
         Navigator.of(context).pushNamed(MessagingScreen.routeName);
