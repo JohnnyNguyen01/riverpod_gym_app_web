@@ -8,14 +8,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class MessagingScreen extends ConsumerWidget {
   static const String routeName = '/messaging-screen';
 
-  static Route route() => MaterialPageRoute(
-      settings: RouteSettings(name: routeName),
-      builder: (_) => MessagingScreen());
+  static Route route() => PageRouteBuilder(
+        settings: RouteSettings(name: routeName),
+        pageBuilder: (_, __, ___) => MessagingScreen(),
+        transitionDuration: const Duration(seconds: 0),
+      );
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
-      appBar: _buildAppBar(context, watch),
+      // appBar: _buildAppBar(context, watch),
       body: Row(
         children: [
           NavigationBar(),

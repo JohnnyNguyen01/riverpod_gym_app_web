@@ -6,9 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class Dashboard extends ConsumerWidget {
   static const routeName = "/dash";
 
-  static Route route() => MaterialPageRoute(
-      settings: const RouteSettings(name: routeName),
-      builder: (_) => Dashboard());
+  static Route route() => PageRouteBuilder(
+        settings: const RouteSettings(name: routeName),
+        pageBuilder: (_, __, ___) => Dashboard(),
+        transitionDuration: const Duration(seconds: 0),
+      );
 
   @override
   Widget build(BuildContext context, ScopedReader read) {

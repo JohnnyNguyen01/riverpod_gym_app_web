@@ -5,9 +5,15 @@ import 'package:flutter/material.dart';
 class ExercisesScreen extends StatelessWidget {
   static const routeName = '/exercises-screen';
 
-  static Route route() => MaterialPageRoute(
-      settings: const RouteSettings(name: routeName),
-      builder: (_) => ExercisesScreen());
+  // static Route route() => MaterialPageRoute(
+  //     settings: const RouteSettings(name: routeName),
+  //     builder: (_) => ExercisesScreen());
+
+  static Route route() => PageRouteBuilder(
+        settings: const RouteSettings(name: routeName),
+        pageBuilder: (context, animation1, animation2) => ExercisesScreen(),
+        transitionDuration: const Duration(seconds: 0),
+      );
 
   @override
   Widget build(BuildContext context) {
