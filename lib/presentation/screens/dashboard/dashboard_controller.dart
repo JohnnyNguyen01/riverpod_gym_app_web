@@ -12,9 +12,7 @@ class DashboardController {
 
   //todo: remove
   void testBtn() async {
-    final selectedRoom = read(selectedChatRoomStateProvider);
-    print(selectedRoom);
-    final tester = read(selectedChatRoomStateProvider);
-    print(tester);
+    final userState = read(userStateProvider);
+    print(userState);
   }
 }

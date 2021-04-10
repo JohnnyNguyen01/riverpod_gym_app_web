@@ -1,3 +1,4 @@
+import 'package:adonis_web_test/domain/authentication/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
@@ -26,6 +27,13 @@ class Coach extends Equatable {
         uid: uid ?? this.uid,
         imageURL: imageURL ?? this.imageURL);
   }
+
+  Coach.fromAuthAndStorageProviders(
+    AuthRepository authProvider,
+  )   : this.uid = authProvider.uid,
+        this.name = authProvider.userName,
+        this.email = authProvider.email,
+        this.imageURL = '';
 
   Coach.fromDatabase(Map<String, dynamic> json)
       : this.name = json['name'],

@@ -1,5 +1,7 @@
+import 'package:adonis_web_test/states/states.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ChatRoomCard extends StatelessWidget {
   final String profileImageURL;
@@ -23,7 +25,12 @@ class ChatRoomCard extends StatelessWidget {
         participantName,
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
-      subtitle: Text(latestMessage),
+      subtitle: Consumer(builder: (context, watch, child) {
+        final userName = watch(userStateProvider).name;
+        final bool isUser = participantName != userName;
+        print('name: $userName || $participantName');
+        return Text(isUser ? 'you: $latestMessage' : latestMessage);
+      }),
       onTap: onTap,
     );
   }

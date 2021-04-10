@@ -37,14 +37,14 @@ class MessagingScreenController {
         clientUID: roomDetails.clientID,
         message: Message(
             message: inputController.text,
-            profileImageURL: userDetails.profileImageURL,
+            profileImageURL: userDetails.imageURL,
             senderUID: userDetails.uid,
             sentAt: DateTime.now(),
-            sentBy: userDetails.userName),
+            sentBy: userDetails.name),
       );
       read(selectedChatRoomStateProvider.notifier).setLatestMessage(
         message: inputController.text,
-        sentBy: userDetails.userName,
+        sentBy: userDetails.name,
         sentAt: DateTime.now(),
       );
       final newRoomInfo = read(selectedChatRoomStateProvider);
