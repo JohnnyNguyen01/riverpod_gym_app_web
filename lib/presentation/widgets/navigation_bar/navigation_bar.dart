@@ -2,27 +2,18 @@ import 'package:adonis_web_test/presentation/widgets/navigation_bar/navigation_b
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NavigationBar extends StatefulWidget {
+class NavigationBar extends ConsumerWidget {
   @override
-  _NavigationBarState createState() => _NavigationBarState();
-}
-
-class _NavigationBarState extends State<NavigationBar> {
-  int _selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    final _selectedIndex = watch(navigatioBarControllerProvider);
     return Consumer(
       builder: (context, watch, child) {
-        final _pageController = watch(navigatioBarControllerProvider);
+        final _pageController = watch(navigatioBarControllerProvider.notifier);
 
         return NavigationRail(
           selectedIndex: _selectedIndex,
           onDestinationSelected: (int index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-            _pageController.handleChange(
-                index: _selectedIndex, context: context);
+            _pageController.handleChange(index: index, context: context);
           },
           labelType: NavigationRailLabelType.selected,
           destinations: const <NavigationRailDestination>[
