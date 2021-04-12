@@ -23,6 +23,10 @@ class NavigationBar extends ConsumerWidget {
               label: Text('Dashboard'),
             ),
             NavigationRailDestination(
+              icon: Icon(Icons.people),
+              label: Text('users'),
+            ),
+            NavigationRailDestination(
               icon: Icon(Icons.bookmark_border),
               selectedIcon: Icon(Icons.book),
               label: Text('Exercises'),

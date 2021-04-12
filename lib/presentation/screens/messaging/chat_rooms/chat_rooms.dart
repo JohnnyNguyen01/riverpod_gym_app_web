@@ -1,3 +1,4 @@
+import 'package:adonis_web_test/config/style_constants.dart';
 import 'package:adonis_web_test/presentation/screens/messaging/chat_rooms/chat_room_card.dart';
 import 'package:adonis_web_test/presentation/screens/messaging/messaging_screen_controller.dart';
 import 'package:adonis_web_test/states/messaging/chat_room_list/chat_room_list_stream.dart';
@@ -35,13 +36,7 @@ class ChatRooms extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
-          'Chats.',
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 26,
-          ),
-        ),
+        const Text('Chats.', style: kPageHeading),
         IconButton(onPressed: () {}, icon: Icon(Icons.search))
       ],
     );

@@ -19,11 +19,16 @@ class NavigationBarController extends StateNotifier<int> {
         break;
       case 1:
         state = index;
-        Navigator.of(context).pushNamed(ExercisesScreen.routeName);
+        Navigator.of(context).pushNamed(UsersScreen.routeName);
         break;
       case 2:
         state = index;
+        Navigator.of(context).pushNamed(ExercisesScreen.routeName);
+        break;
+      case 3:
+        state = index;
         Navigator.of(context).pushNamed(MessagingScreen.routeName);
+        break;
     }
   }
 }

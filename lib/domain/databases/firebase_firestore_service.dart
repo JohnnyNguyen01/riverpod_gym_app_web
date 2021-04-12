@@ -296,9 +296,9 @@ class FirestoreService implements NoSqlDatabaseRepository {
   }
 
   @override
-  Future<void> editExercise({@required ExerciseForDatatable exercise}) {
+  Future<void> editExercise({@required ExerciseForDatatable exercise}) async {
     try {
-      final _exercisesCollection = _firestore
+      await _firestore
           .collection(Paths.exercises)
           .doc(exercise.documentID)
           .set(exercise.newExerciseMap());
@@ -307,5 +307,21 @@ class FirestoreService implements NoSqlDatabaseRepository {
     } catch (e) {
       throw Failure(error: "Error", message: e.toString());
     }
+  }
+
+  @override
+  Stream<List<UserModel>> getUsersAsStream() {
+    final userStreamSnapshot =
+        _firestore.collection(Paths.users).snapshots().asBroadcastStream();
+    Stream<List<UserModel>> userModelStream =
+        userStreamSnapshot.map((snapshot) {
+      List<UserModel> userModelList = [];
+      final docList = snapshot.docs;
+      docList.forEach((doc) {
+        userModelList.add(UserModel.fromDocumentSnapshot(doc.data()));
+      });
+      return userModelList;
+    });
+    return userModelStream;
   }
 }
