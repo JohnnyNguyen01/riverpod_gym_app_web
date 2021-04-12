@@ -1,5 +1,9 @@
 import 'package:adonis_web_test/config/config.dart';
+import 'package:adonis_web_test/domain/databases/databases.dart';
+import 'package:adonis_web_test/domain/domain.dart';
+import 'package:adonis_web_test/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class NewExerciseForm extends StatefulWidget {
   @override
@@ -9,6 +13,7 @@ class NewExerciseForm extends StatefulWidget {
 class _NewExerciseFormState extends State<NewExerciseForm> {
   final _exerciseNameController = TextEditingController();
   final _exerciseURLController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   // final _youtubeController = YoutubeController();
   @override
   Widget build(BuildContext context) {
@@ -25,6 +30,7 @@ class _NewExerciseFormState extends State<NewExerciseForm> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
+              key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -73,12 +79,29 @@ class _NewExerciseFormState extends State<NewExerciseForm> {
   }
 
   Widget _buildSubmitButton() {
-    return Container(
-      height: 35,
-      child: ElevatedButton(
-        child: const Text('Add Exercise'),
-        onPressed: () {},
-      ),
+    return Consumer(
+      builder: (context, watch, child) {
+        final databaseRepo = watch(databaseProvider);
+        return Container(
+          height: 35,
+          child: ElevatedButton(
+            child: const Text('Add Exercise'),
+            onPressed: () {
+              if (_formKey.currentState.validate()) {
+                try {
+                  final exercise = ExerciseForDatatable(
+                      exerciseName: _exerciseNameController.text,
+                      exerciseURL: _exerciseURLController.text,
+                      documentID: '');
+                  databaseRepo.addNewExercise(exercise: exercise);
+                } on Failure catch (e) {
+                  ErrorToast(message: e.message).showToast();
+                }
+              }
+            },
+          ),
+        );
+      },
     );
   }
 

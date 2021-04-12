@@ -18,4 +18,7 @@ abstract class NoSqlDatabaseRepository {
   Future<String> setUserName(String uid, String newName);
   Future<UserModel> getUser(String uid);
   Future<Workout> getUserWorkout(String uid, DateTime dateTime);
+  Stream<List<ExerciseForDatatable>> getExerciseListAsStream();
+  Future<void> deleteExercise({@required ExerciseForDatatable exercise});
+  Future<void> addNewExercise();
 }

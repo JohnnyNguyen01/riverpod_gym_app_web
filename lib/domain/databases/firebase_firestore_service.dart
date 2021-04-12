@@ -35,7 +35,7 @@ class FirestoreService implements NoSqlDatabaseRepository {
         'image_url': user.profileImageURL
       });
     } catch (e) {
-      log(e);
+      throw Failure(error: "error", message: e.toString());
     }
   }
 
@@ -232,5 +232,66 @@ class FirestoreService implements NoSqlDatabaseRepository {
       return chatRoomsList;
     });
     return chatRoomListStream.asBroadcastStream();
+  }
+
+  ///Retrieves a stream of all the exercises within the database, to be used
+  ///for list generation within UI.
+  @override
+  Stream<List<ExerciseForDatatable>> getExerciseListAsStream() {
+    try {
+      // Stream<List<ExerciseForDatatable>> exerciseList = Stream.empty();
+      final exerciseListStream = _firestore
+          .collection(Paths.exercises)
+          .orderBy('exerciseName')
+          .snapshots()
+          .asBroadcastStream();
+
+      Stream<List<ExerciseForDatatable>> exerciseStreamList =
+          exerciseListStream.map((snapshot) {
+        List<ExerciseForDatatable> tableList = [];
+        var docList = snapshot.docs;
+        docList.forEach((document) {
+          final docData = document.data();
+          tableList.add(ExerciseForDatatable(
+              documentID: document.id,
+              exerciseName: docData['exerciseName'],
+              exerciseURL: docData['exerciseURL']));
+        });
+        return tableList;
+      });
+      return exerciseStreamList;
+    } on PlatformException catch (e) {
+      throw Failure(error: e.code, message: e.message);
+    } catch (e) {
+      throw Failure(error: 'Error', message: e.toString());
+    }
+  }
+
+  @override
+  Future<void> deleteExercise({@required ExerciseForDatatable exercise}) async {
+    try {
+      await _firestore
+          .collection(Paths.exercises)
+          .doc(exercise.documentID)
+          .delete();
+    } on PlatformException catch (e) {
+      throw Failure(error: e.code, message: e.message);
+    } catch (e) {
+      throw Failure(error: "Error", message: e.toString());
+    }
+  }
+
+  @override
+  Future<void> addNewExercise({@required ExerciseForDatatable exercise}) async {
+    try {
+      await _firestore
+          .collection(Paths.exercises)
+          .doc()
+          .set(exercise.newExerciseMap());
+    } on PlatformException catch (e) {
+      throw Failure(error: e.code, message: e.message);
+    } catch (e) {
+      throw Failure(error: "Error", message: e.toString());
+    }
   }
 }

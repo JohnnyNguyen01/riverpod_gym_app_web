@@ -1,3 +1,4 @@
+import 'package:adonis_web_test/presentation/screens/exercises/exercise_data_table/exercises_data_table.dart';
 import 'package:adonis_web_test/presentation/screens/exercises/new_exercise_form.dart';
 import 'package:adonis_web_test/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,14 @@ class ExercisesScreen extends StatelessWidget {
         // mainAxisSize: MainAxisSize.max,
         children: [
           NavigationBar(),
-          NewExerciseForm(),
+          Expanded(
+            flex: 3,
+            child: ExercisesDataTable(),
+          ),
+          Expanded(
+            flex: 1,
+            child: NewExerciseForm(),
+          ),
         ],
       ),
     );
