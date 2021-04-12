@@ -21,4 +21,5 @@ abstract class NoSqlDatabaseRepository {
   Stream<List<ExerciseForDatatable>> getExerciseListAsStream();
   Future<void> deleteExercise({@required ExerciseForDatatable exercise});
   Future<void> addNewExercise();
+  Future<void> editExercise({@required ExerciseForDatatable exercise});
 }

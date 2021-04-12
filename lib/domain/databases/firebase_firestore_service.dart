@@ -294,4 +294,18 @@ class FirestoreService implements NoSqlDatabaseRepository {
       throw Failure(error: "Error", message: e.toString());
     }
   }
+
+  @override
+  Future<void> editExercise({@required ExerciseForDatatable exercise}) {
+    try {
+      final _exercisesCollection = _firestore
+          .collection(Paths.exercises)
+          .doc(exercise.documentID)
+          .set(exercise.newExerciseMap());
+    } on PlatformException catch (e) {
+      throw Failure(error: e.code, message: e.message);
+    } catch (e) {
+      throw Failure(error: "Error", message: e.toString());
+    }
+  }
 }

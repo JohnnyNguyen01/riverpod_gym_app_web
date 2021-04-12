@@ -1,5 +1,6 @@
 import 'package:adonis_web_test/domain/databases/databases.dart';
 import 'package:adonis_web_test/domain/domain.dart';
+import 'package:adonis_web_test/presentation/screens/exercises/exercise_data_table/edit_exercise_alert_dialog.dart';
 import 'package:adonis_web_test/presentation/widgets/dialogs/confirm_dialog.dart';
 import 'package:adonis_web_test/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,14 @@ class ExerciseDataTableController {
   ExerciseDataTableController(
       {@required this.read, @required this.databaseRepository});
 
+  void handleEditExerciseBtn(
+      {@required ExerciseForDatatable exercise,
+      @required BuildContext context}) {
+    showDialog(
+        context: context,
+        builder: (_) => EditExerciseAlertDialog(exercise: exercise));
+  }
+
   void handleDeleteBtn(
       {@required ExerciseForDatatable exercise,
       @required BuildContext context}) {
@@ -32,7 +41,6 @@ class ExerciseDataTableController {
               title: "Delete ${exercise.exerciseName}",
               subtitle: "Are you sure you want to delete this exercise?",
               onConfirm: () {
-                //todo: Add delete method, not implementing yet due to testing
                 try {
                   databaseRepository.deleteExercise(exercise: exercise);
                   Navigator.of(context).pop();

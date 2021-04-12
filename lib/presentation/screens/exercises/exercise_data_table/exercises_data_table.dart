@@ -57,7 +57,8 @@ class ExercisesDataTable extends ConsumerWidget {
       DataCell(SelectableText(exercise.exerciseURL)),
       DataCell(
         IconButton(
-          onPressed: () {},
+          onPressed: () => controller.handleEditExerciseBtn(
+              exercise: exercise, context: context),
           icon: Icon(Icons.edit),
         ),
       ),
