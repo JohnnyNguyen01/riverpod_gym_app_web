@@ -1,3 +1,4 @@
+import 'package:adonis_web_test/presentation/screens/library/library_screen.dart';
 import 'package:adonis_web_test/presentation/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,6 +29,10 @@ class NavigationBarController extends StateNotifier<int> {
       case 3:
         state = index;
         Navigator.of(context).pushNamed(MessagingScreen.routeName);
+        break;
+      case 4:
+        state = index;
+        Navigator.of(context).pushNamed(LibraryScreen.routeName);
         break;
     }
   }

@@ -36,6 +36,10 @@ class NavigationBar extends ConsumerWidget {
               selectedIcon: Icon(Icons.message),
               label: Text('Messages'),
             ),
+            NavigationRailDestination(
+                icon: Icon(Icons.book_outlined),
+                selectedIcon: Icon(Icons.book),
+                label: Text('Library')),
           ],
         );
       },

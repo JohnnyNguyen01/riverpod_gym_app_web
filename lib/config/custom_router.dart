@@ -1,4 +1,5 @@
 import 'package:adonis_web_test/presentation/screens/dashboard/dashboard.dart';
+import 'package:adonis_web_test/presentation/screens/library/screens.dart';
 import 'package:flutter/material.dart';
 import '../presentation/screens/screens.dart';
 
@@ -15,6 +16,10 @@ class CustomRouter {
         return ExercisesScreen.route();
       case UsersScreen.routeName:
         return UsersScreen.route();
+      case LibraryScreen.routeName:
+        return LibraryScreen.route();
+      case CreateProgramScreen.routeName:
+        return CreateProgramScreen.route();
       default:
         return _buildErrorRoute(settings: settings);
     }
