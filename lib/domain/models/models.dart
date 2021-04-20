@@ -8,3 +8,4 @@ export './coach_model.dart';
 export 'chat_room_model.dart';
 export './message_model.dart';
 export './exercise_for_table.dart';
+export './selected_week_session_model.dart';

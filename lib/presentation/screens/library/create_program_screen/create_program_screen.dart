@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'summary_view/summary_view.dart';
+import 'workout_builder/workout_builder_view.dart';
 
 class CreateProgramScreen extends ConsumerWidget {
   static const routeName = '/create-program';
@@ -18,17 +19,11 @@ class CreateProgramScreen extends ConsumerWidget {
     // final _workoutState = watch(workoutProgramStateProvider);
     return Scaffold(
         body: Row(
-      children: [NavigationBar(), SummaryView(), _BuildWorkoutBuilderView()],
+      children: [
+        NavigationBar(),
+        SummaryView(),
+        WorkoutBuilderView(),
+      ],
     ));
-  }
-}
-
-class _BuildWorkoutBuilderView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 4,
-      child: Placeholder(),
-    );
   }
 }
