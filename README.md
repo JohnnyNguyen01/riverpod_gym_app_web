@@ -1,4 +1,6 @@
 
+
+
 <p align="center">
   <a href="https://example.com/">
     <img src="https://www.adonisathletics.com.au/wp-content/uploads/2020/10/logo.png" alt="Logo" width=119 height=72>
@@ -72,6 +74,48 @@ Currently builds. Not all features are created.
 - Gamification of certain aspects.
 - Remodel a few of the Firebase model classes.
 - Complete workout creation workflow
+## Creators
+
+**Creator**
+
+- <https://github.com/Johnnythenewbie>
+
+## Thanks
+
+Amir Fazeli and the Adonis Athletic Company for letting me build this.
+
+## Copyright and license
+
+Code and documentation copyright 2011-2018 the authors. Code released under the [MIT License]
+
+Enjoy :metal:
+
+
+| Features| Ready |
+| ------------- | ------------- |
+| User Authentication | ✔️  |
+| User Account Creation (Create, Read, Update, Delete) | ✔️  |
+| Real time workout tracking and logging  | ✔️ |
+| Instant Messaging with Clients  | ✔️ |
+| Management of Video Tutorials (Create, Read, Update, Delete) | ✔️ |
+| Ability to upload videos explicitly via the web app | ❌|
+| Dynamic workout creation | ❌|
+
+## Demo
+
+| <p>Demo 1</p> | <p>Demo 2 - Better showcase of instant messaging with web-app</p> |
+| ------------- | ------------- |
+| [![Demo 1](http://img.youtube.com/vi/hmSho0Xg6gM/0.jpg)](https://www.youtube.com/watch?v=hmSho0Xg6gM "Demo 1") | [![Demo 2](http://img.youtube.com/vi/XPVG-HBeDXU/0.jpg)](https://www.youtube.com/watch?v=XPVG-HBeDXU "Demo 2")| 
+
+
+
+## To Do
+- Add ability to upload workout recordings in a log.
+- Create a dashboard that contains all of ther user's previous workout hirstory.
+- Gamification of certain aspects.
+- Remodel a few of the Firebase model classes.
+- Update this app's Riverpod to the latest deployment.
+
 ## Creators
 
 **Creator**
